@@ -123,13 +123,13 @@
                 this.i.each(function(k) {
                     var $this = $(this);
                     s.i[k] = $this;
-                    s.v[k] = $this.val();
+                    s.v[k] = $this.val().replace(/\D/g,'');
 
                     $this.bind(
                         'change'
                         , function () {
                             var val = {};
-                            val[k] = $this.val();
+                            val[k] = $this.val().replace(/\D/g,'');
                             s.val(val);
                         }
                     );
@@ -139,7 +139,7 @@
             } else {
                 // input = integer
                 this.i = this.$;
-                this.v = this.$.val();
+                this.v = this.$.val().replace(/\D/g,'');
                 (this.v == '') && (this.v = this.o.min);
 
                 this.$.bind(
@@ -483,7 +483,7 @@
                             var ori = e.originalEvent
                                 ,deltaX = ori.detail || ori.wheelDeltaX
                                 ,deltaY = ori.detail || ori.wheelDeltaY
-                                ,v = parseInt(s.$.val()) + (deltaX>0 || deltaY>0 ? s.o.step : deltaX<0 || deltaY<0 ? -s.o.step : 0);
+                                ,v = parseInt(s.$.val().replace(/\D/g,'')) + (deltaX>0 || deltaY>0 ? s.o.step : deltaX<0 || deltaY<0 ? -s.o.step : 0);
 
                             if (
                                 s.cH
@@ -519,7 +519,7 @@
                             if ($.inArray(kc,[37,38,39,40]) > -1) {
                                 e.preventDefault();
 
-                                var v = parseInt(s.$.val()) + kv[kc] * m;
+                                var v = parseInt(s.$.val().replace(/\D/g,'')) + kv[kc] * m;
 
                                 s.o.stopper
                                 && (v = max(min(v, s.o.max), s.o.min));
